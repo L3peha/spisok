@@ -95,7 +95,7 @@ void list::deletePosition(int pos)
 	if (pos < 0 || pos > lenght) 
 	{
 		system("cls");
-		std::cout << "Incorrect position in \"deleteElement\"\n";
+		cout << "Incorrect position in \"deleteElement\"\n";
 		system("pause");
 		return;
 	}
@@ -167,18 +167,20 @@ void list::addToRoot(int data)
 void list::print() 
 {
 	element* Current = root;
-	std::cout << "----Current List----Lenght = " << lenght << "\n";
-	while (Current->getNext() != NULL) {
-		std::cout << Current->getData() << "\n";
+	cout << "----Current List----Lenght = " << lenght << "\n";
+	while (Current->getNext() != NULL) 
+	{
+		cout << Current->getData() << "\n";
 		Current = Current->getNext();
 	}
-	std::cout << Current->getData() << "\n";
+	cout << Current->getData() << "\n";
 }
 
 bool list::exist(int data) 
 {
 	element* Current = root;
-	while (true) {
+	while (true) 
+	{
 		if (Current->getData() == data)
 			return true;
 
@@ -194,10 +196,15 @@ void list::deleteAllElementsLikeThis(int data)
 	element* Current = root;
 	element* temp;
 	int i = 0;
-	while (true) {
+	int j = 0;
+	while (true) 
+	{
 		temp = Current->getNext();
 		if (Current->getData() == data)
-			this->deletePosition(i);
+		{
+			this->deletePosition(i-j);
+			j++;
+		}
 		i++;
 		if (temp != NULL)
 			Current = temp;
