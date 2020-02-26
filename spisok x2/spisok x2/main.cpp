@@ -25,7 +25,7 @@ int main() {
 	if (!test->exist(111))
 		cout << "Search for value 111: not found" << endl;
 
-	test->deleteAllElementsLikeThis(7);
+	test->deleteAllElementsLikeThis(7); // doesn't work for more than one
 
 	cout << "---";
 
