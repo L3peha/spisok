@@ -5,32 +5,25 @@
 
 using namespace std;
 
-int main() {
-	setlocale(LC_ALL, "rus");
+int main()
+{
+	Container* c = new list;
+	for (int i = 1; i < 10; i++)
+		c->insert(i * i);
 
-	list* test = new list;
+	cout << "Container after creation:" << endl;
+	c->print();
 
-	for (int i = 1; i < 10; i++) {
-		test->addToEnd(i * i);
-	}
-	test->addToRoot(7);
-	test->addElement(25, 4);
-
-
-	test->print();
-
-	if (test->exist(25))
+	if (c->exists(25))
 		cout << "Search for value 25: found" << endl;
 
-	if (!test->exist(111))
+	if (!c->exists(111))
 		cout << "Search for value 111: not found" << endl;
 
-	test->deleteAllElementsLikeThis(25);
+	c->remove(25);
+	cout << "Container after deletion of the element:" << endl;
+	c->print();
 
-	cout << "---";
-
-	test->print();
-
-	cout << "\n";
-	system("pause");
+	delete c;
+	return 0;
 }

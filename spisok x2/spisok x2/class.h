@@ -5,19 +5,34 @@
 
 using namespace std;
 
-class list
+class Container
+{
+public:
+	// Виртуальные методы, должны быть реализованы вашим контейнером
+	virtual void insert(int data) = 0;
+	virtual bool exists(int data) = 0;
+	virtual void remove(int data) = 0;
+
+	// И этот тоже, хотя к нему потом ещё вернёмся
+	virtual void print() = 0;
+
+	// Виртуальный деструктор (пока просто поверьте, что он нужен)
+	virtual ~Container() { };
+};
+
+class list:public Container
 {
 public:
 	list();
 	~list();
 	void addElement(int data, int pos);
 	void deletePosition(int pos);
-	void addToEnd(int data);
+	void insert(int data);  //addToEnd
 	void addToRoot(int data);
 	void print();
 	int getLenght();
-	bool exist(int data);
-	void deleteAllElementsLikeThis(int data);
+	bool exists(int data);
+	void remove(int data); //deleteAllElementsLikeThis
 private:
 	element* end;
 	element* root;
@@ -33,7 +48,7 @@ list::list()
 
 list::~list()
 {
-	while (this->lenght != 0)
+	while (this->lenght != 1)
 	{
 		deletePosition(0);
 	}
@@ -66,7 +81,7 @@ void list::addElement(int data, int pos)
 
 	if (pos == lenght)
 	{
-		this->addToEnd(data);
+		this->insert(data);
 		return;
 	}
 
@@ -128,7 +143,7 @@ void list::deletePosition(int pos)
 	lenght--;
 }
 
-void list::addToEnd(int data) 
+void list::insert(int data)
 {
 
 	element* NewElement = new element;
@@ -176,7 +191,7 @@ void list::print()
 	cout << Current->getData() << "\n";
 }
 
-bool list::exist(int data) 
+bool list::exists(int data) 
 {
 	element* Current = root;
 	while (true) 
@@ -191,7 +206,7 @@ bool list::exist(int data)
 	return false;
 }
 
-void list::deleteAllElementsLikeThis(int data) 
+void list::remove(int data)
 {
 	element* Current = root;
 	element* temp;
