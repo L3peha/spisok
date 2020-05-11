@@ -1,33 +1,44 @@
 
 #include "../include/Element.h";
 
+template<typename T>
 
-void element::setData(int data)
+void element<T>::setData(T& data)
 {
 	this->data = data;
 }
 
-void element::setNext(element* next)
+template<typename T>
+
+void element<T>::setNext(element* next)
 {
 	this->next = next;
 }
 
-void element::setPrev(element* prev)
+template<typename T>
+
+void element<T>::setPrev(element* prev)
 {
 	this->prev = prev;
 }
 
-int element::getData()
+template<typename T>
+
+int element<T>::getData() const
 {
 	return this->data;
 }
 
-element* element::getNext()
+template<typename T>
+
+element<T>* element<T>::getNext() const
 {
 	return this->next;
 }
 
-element* element::getPrev()
+template<typename T>
+
+element<T>* element<T>::getPrev() const
 {
 	return this->prev;
 }

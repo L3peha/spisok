@@ -6,39 +6,53 @@
 
 using namespace std;
 
+// Обновлённый интерфейс, теперь он шаблон
+template<typename T>
 class Container
 {
 public:
-	// Виртуальные методы, должны быть реализованы вашим контейнером
-	virtual void insert(int data) = 0;
-	virtual bool exists(int data) = 0;
-	virtual void remove(int data) = 0;
+	// Виртуальный деструктор
+	virtual ~Container() {};
 
-	
+	/*
+	 * Виртуальные методы, должны быть реализованы вашим контейнером
+	 */
 
-	// И этот тоже, хотя к нему потом ещё вернёмся
-	virtual void print() = 0;
+	virtual void print() const = 0;
 
-	// Виртуальный деструктор (пока просто поверьте, что он нужен)
-	virtual ~Container() { };
+	 // Вставка элемента
+	virtual void insert(const T& value) = 0;
+
+	// Удаление элемента
+	virtual void remove(const T& value) = 0;
+
+	// Проверка наличия элемента
+	virtual bool exists(const T& value) const = 0;
 };
 
-class list:public Container
+template <typename T>
+
+class list:public Container<T>
 {
 public:
 	list();
 	~list();
-	void addElement(int data, int pos);
+	void addElement(T& data, int pos);
 	void deletePosition(int pos);
-	void insert(int data);  //addToEnd
-	void addToRoot(int data);
-	void print();
-	int getLenght();
-	bool exists(int data);
-	void remove(int data); //deleteAllElementsLikeThis
+	void insert(const T& data);  //addToEnd
+	void addToRoot(T& data);
+	void print() const;
+	int getLenght() const;
+	bool exists(const T& data) const;
+	void remove(const T& data); //deleteAllElementsLikeThis
 private:
-	element* end;
-	element* root;
+	element<T>* end;
+	element<T>* root;
 	int lenght;
 };
+
+//template class list<int>;
+//template class list<std::string>;
+
+
 #endif

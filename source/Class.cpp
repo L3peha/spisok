@@ -2,14 +2,18 @@
 #include "../include/class.h"
 #include <iostream>
 
-list::list()
+template<typename T>
+
+list<T>::list()
 {
 	this->root = NULL;
 	this->end = NULL;
 	this->lenght = 0;
 }
 
-list::~list()
+template<typename T>
+
+list<T>::~list()
 {
 	while (this->lenght != 0)
 	{
@@ -17,12 +21,16 @@ list::~list()
 	}
 }
 
-int list::getLenght()
+template<typename T>
+
+int list<T>::getLenght() const
 {
 	return this->lenght;
 }
 
-void list::addElement(int data, int pos)
+template<typename T>
+
+void list<T>::addElement(T& data, int pos)
 {
 	element* NewElement = new element;
 	NewElement->setData(data);
@@ -65,7 +73,9 @@ void list::addElement(int data, int pos)
 	this->lenght++;
 }
 
-void list::deletePosition(int pos)
+template<typename T>
+
+void list<T>::deletePosition(int pos)
 {
 	element* Delete = root;
 
@@ -110,7 +120,9 @@ void list::deletePosition(int pos)
 	lenght--;
 }
 
-void list::insert(int data)
+template<typename T>
+
+void list<T>::insert(const T& data)
 {
 
 	element* NewElement = new element;
@@ -128,7 +140,9 @@ void list::insert(int data)
 	lenght++;
 }
 
-void list::addToRoot(int data)
+template<typename T>
+
+void list<T>::addToRoot(T& data)
 {
 
 	element* NewElement = new element;
@@ -146,7 +160,9 @@ void list::addToRoot(int data)
 	lenght++;
 }
 
-void list::print()
+template<typename T>
+
+void list<T>::print() const
 {
 	element* Current = root;
 	cout << "----Current List----Lenght = " << lenght << "\n";
@@ -158,7 +174,9 @@ void list::print()
 	cout << Current->getData() << "\n";
 }
 
-bool list::exists(int data)
+template<typename T>
+
+bool list<T>::exists(const T& data) const
 {
 	element* Current = root;
 	while (true)
@@ -173,7 +191,9 @@ bool list::exists(int data)
 	return false;
 }
 
-void list::remove(int data)
+template<typename T>
+
+void list<T>::remove(const T& data)
 {
 	element* Current = root;
 	element* temp;
