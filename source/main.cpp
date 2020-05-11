@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstdlib>
-#include "include/class.h"
+#include "../include/class.h"
 
 
 using namespace std;
@@ -8,6 +8,7 @@ using namespace std;
 int main()
 {
 	Container* c = new list;
+
 	for (int i = 1; i < 10; i++)
 		c->insert(i * i);
 
@@ -23,7 +24,8 @@ int main()
 	c->remove(25);
 	cout << "Container after deletion of the element:" << endl;
 	c->print();
+	
 
-	delete c;
+
 	return 0;
 }
