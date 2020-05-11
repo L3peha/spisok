@@ -48,7 +48,7 @@ list::list()
 
 list::~list()
 {
-	while (this->lenght != 1)
+	while (this->lenght >= 1)
 	{
 		deletePosition(0);
 	}
