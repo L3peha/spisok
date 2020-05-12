@@ -1,36 +1,6 @@
 #include <iostream>
-#include <cstdlib>
-#include "../include/class.h"
-
-
-using namespace std;
-
-int main()
-{
-	Container<int>* c = new list<int>();
-
-	for (int i = 1; i < 10; i++)
-		c->insert(i * i);
-
-	cout << "Container after creation:" << endl;
-	c->print();
-
-	if (c->exists(25))
-		cout << "Search for value 25: found" << endl;
-
-	if (!c->exists(111))
-		cout << "Search for value 111: not found" << endl;
-
-	c->remove(25);
-	cout << "Container after deletion of the element:" << endl;
-	c->print();
-
-
-
-	return 0;
-}
-/*#include <iostream>
 #include <string>
+#include <cstdlib>
 #include <vector>
 #include <algorithm>
 #include <functional>
@@ -45,7 +15,6 @@ using namespace std;
 
 // Подключите свой хэдер вместо VerySimpleList.h
 #include "../include/class.h"
-#include "../include/Element.h"
 // Вместо VerySimpleList укажите имя своего класса, который тестируем
 #define IMPL list
 
@@ -57,7 +26,6 @@ bool test1()
 	int size = 10;
 	Container<int>* impl = new IMPL<int>();
 	bool test_ok = true;
-
 	for (int i = 0; i < size; i++) {
 		impl->insert(i * i);
 	}
@@ -71,6 +39,7 @@ bool test1()
 			test_ok = false;
 		}
 	}
+
 
 	delete impl;
 
@@ -111,7 +80,6 @@ bool test2()
 bool test5()
 {
 	bool test_ok = true;
-
 	int size = 10;
 
 	IMPL<int> impl;
@@ -126,7 +94,6 @@ bool test5()
 bool test6()
 {
 	bool test_ok = true;
-
 	int size = 10;
 
 	IMPL<int> impl;
@@ -142,7 +109,6 @@ bool test6()
 bool test7()
 {
 	bool test_ok = true;
-
 	IMPL<int> impl;
 	impl.exists(42);
 	impl.remove(42);
@@ -158,7 +124,6 @@ bool test7()
 bool test8()
 {
 	bool test_ok = true;
-
 	int size = 10;
 	vector<int> reference;
 	vector<int> from_impl;
@@ -173,6 +138,7 @@ bool test8()
 	auto position = find(reference.begin(), reference.end(), to_delete);
 	reference.erase(position);
 	impl.remove(to_delete);
+	
 
 	//for(const auto& el: impl)
 	//    from_impl.push_back(el);
@@ -191,7 +157,6 @@ bool test8()
 bool test9()
 {
 	bool test_ok = true;
-
 	int size = 10;
 	vector<int> reference;
 	vector<int> from_impl;
@@ -252,5 +217,7 @@ int main()
 	cout << "=================================" << endl;
 	cout << "Run " << (count - 1) << " tests. Verdict: " << (verdict ? "PASSED" : "FAILED") << endl;
 
+	system("pause");
+
 	return 0;
-}*/
+}

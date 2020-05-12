@@ -44,15 +44,13 @@ public:
 	void print() const;
 	int getLenght() const;
 	bool exists(const T& data) const;
-	void remove(const T& data); //deleteAllElementsLikeThis
+	void remove(const T& data) override; //deleteAllElementsLikeThis
 private:
 	element<T>* end;
 	element<T>* root;
-	int lenght;
+	int length;
 };
 
-//template class list<int>;
-//template class list<std::string>;
-
-
+template class list<int>;
+template class list<string>;
 #endif

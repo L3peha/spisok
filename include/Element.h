@@ -2,24 +2,30 @@
 #ifndef ELEMENT_H
 #define ELEMENT_H
 
+#include <iostream>
+#include <string>
+
 template<typename T>
 
 class element
 {
 public:
-	element* getNext() const;
-	element* getPrev() const;
-	int getData() const;
-	void setNext(element* next);
-	void setPrev(element* prev);
-	void setData(T& data);
+	//element<T>(const T& data);
+	//element<T>(const element<T> &other);
+	element<T>(const T& data);
+	element<T>* getNext() const;
+	element<T>* getPrev() const;
+	T getData() const;
+	void setNext(element<T>* next);
+	void setPrev(element<T>* prev);
+	void setData(const T& data);
 private:
-	element* next;
-	element* prev;
-	T& data;
+	element<T>* next;
+	element<T>* prev;
+	T data;
 };
 
-//template class element<int>;
-//template class element<std::string>;
+template class element<int>;
+template class element<std::string>;
 
 #endif

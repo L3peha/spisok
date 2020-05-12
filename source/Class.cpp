@@ -1,186 +1,175 @@
-
-#include "../include/class.h"
 #include <iostream>
-
+#include "../include/class.h"
 template<typename T>
 
 list<T>::list()
 {
 	this->root = NULL;
 	this->end = NULL;
-	this->lenght = 0;
+	this->length = 0;
 }
 
 template<typename T>
 
 list<T>::~list()
 {
-	while (this->lenght != 0)
-	{
-		deletePosition(0);
-	}
+	
 }
 
 template<typename T>
 
 int list<T>::getLenght() const
 {
-	return this->lenght;
+	return this->length;
 }
 
 template<typename T>
 
 void list<T>::addElement(T& data, int pos)
 {
-	element* NewElement = new element;
-	NewElement->setData(data);
-	element* Insert = root;
-
-	if (pos < 0 || pos > this->lenght)
+	element<T>* NewElement = new element<T>(data);
+	element<T>* Insert = root;
+	if (pos < 0 || pos > this->length)
 	{
 		system("cls");
 		cout << "Incorrect position in \"addElement\"\n";
 		system("pause");
 		return;
 	}
-
 	if (pos == 0)
 	{
 		this->addToRoot(data);
 		return;
 	}
-
-	if (pos == lenght)
+	if (pos == length)
 	{
 		this->insert(data);
 		return;
 	}
-
 	int i = 1;
 	while (i <= pos)
 	{
 		Insert = Insert->getNext();
 		i++;
 	}
-
-	element* PrevIns = Insert->getPrev();
-
+	element<T>* PrevIns = Insert->getPrev();
 	PrevIns->setNext(NewElement);
 	Insert->setPrev(NewElement);
 	NewElement->setPrev(PrevIns);
 	NewElement->setNext(Insert);
-
-	this->lenght++;
+	this->length++;
 }
 
 template<typename T>
 
 void list<T>::deletePosition(int pos)
 {
-	element* Delete = root;
+	element<T>* Delete = root;
 
-	if (lenght == 1) {
+	if (length == 1) {
+		root->setNext(NULL);
+		root->setPrev(NULL);
 		delete root;
 		return;
 	}
-
-	if (pos < 0 || pos > lenght)
+	if (pos < 0 || pos > length)
 	{
 		system("cls");
 		cout << "Incorrect position in \"deletePosition\"\n";
 		system("pause");
 		return;
 	}
-
 	int i = 0;
 	while (i < pos)
 	{
 		Delete = Delete->getNext();
 		i++;
 	}
-
-	element* NextDelete = Delete->getNext();
-	element* PrevDelete = Delete->getPrev();
-
-
-	if (PrevDelete != NULL && lenght != 1)
+	element<T>* NextDelete = Delete->getNext();
+	element<T>* PrevDelete = Delete->getPrev();
+	if (PrevDelete != NULL && length != 1)
 		PrevDelete->setNext(NextDelete);
-	if (NextDelete != NULL && lenght != 1)
+	if (NextDelete != NULL && length != 1)
 		NextDelete->setPrev(PrevDelete);
-
 	if (pos == 0)
 		root = NextDelete;
-	if (pos == lenght - 1)
+	if (pos == length - 1)
 	{
 		PrevDelete->setNext(NULL);
 		end = PrevDelete;
 	}
-
+	Delete->setNext(NULL);
+	Delete->setPrev(NULL);
 	delete Delete;
-	lenght--;
+	length--;
 }
 
 template<typename T>
 
 void list<T>::insert(const T& data)
 {
-
-	element* NewElement = new element;
+	element<T>* NewElement = new element<T>(data);
 	NewElement->setData(data);
 	NewElement->setNext(NULL);
 	NewElement->setPrev(end);
 
 	if (end != NULL)
 		end->setNext(NewElement);
-	if (lenght == 0)
+	if (length == 0)
 		root = end = NewElement;
 	else
 		end = NewElement;
 
-	lenght++;
+	this->length++;
 }
 
 template<typename T>
 
 void list<T>::addToRoot(T& data)
 {
-
-	element* NewElement = new element;
+	element<T>* NewElement = new element<T>(data);
 	NewElement->setData(data);
 	NewElement->setNext(root);
 	NewElement->setPrev(NULL);
 
 	if (root != 0)
 		root->setPrev(NewElement);
-	if (lenght == 0)
+	if (length == 0)
 		root = end = NewElement;
 	else
 		root = NewElement;
 
-	lenght++;
+	this->length++;
 }
 
 template<typename T>
 
 void list<T>::print() const
 {
-	element* Current = root;
-	cout << "----Current List----Lenght = " << lenght << "\n";
-	while (Current->getNext() != NULL)
+	if (length == 0)
 	{
-		cout << Current->getData() << "\n";
-		Current = Current->getNext();
+		return;
 	}
-	cout << Current->getData() << "\n";
+	element<T>* current = root;
+	while (current->getNext())
+	{
+		cout << current->getData() << endl;
+		current = current->getNext();
+	}
+	cout << current->getData() << endl;
 }
 
 template<typename T>
 
 bool list<T>::exists(const T& data) const
 {
-	element* Current = root;
+	element<T>* Current = root;
+	if (length == 0)
+		return false;
 	while (true)
 	{
+		if (Current == NULL)
+			break;
 		if (Current->getData() == data)
 			return true;
 
@@ -192,25 +181,44 @@ bool list<T>::exists(const T& data) const
 }
 
 template<typename T>
-
 void list<T>::remove(const T& data)
 {
-	element* Current = root;
-	element* temp;
-	int i = 0;
-	int j = 0;
-	while (true)
+	if (exists(data))
 	{
-		temp = Current->getNext();
-		if (Current->getData() == data)
+		if (length == 0)
 		{
-			this->deletePosition(i - j);
-			j++;
+			return;
 		}
-		i++;
-		if (temp != NULL)
-			Current = temp;
-		else
-			break;
+		element<T>* Current = root;
+		while (true) {
+			if (root->getData() == data) {
+				element<T>* temp = root->getNext();
+				delete root;
+				root = temp;
+				length--;
+				break;
+			}
+			if (Current == end && end->getData() == data) {
+				element<T>* temp = end->getPrev();
+				delete end;
+				end = temp;
+				end->setNext(NULL);
+				length--;
+				break;
+			}
+			if (Current->getData() == data) {
+				//element<T>* PrevDelete = Current->getPrev();
+				//element<T>* NextDelete = Current->getNext();
+				Current->getPrev()->setNext(Current->getNext());
+				Current->getNext()->setPrev(Current->getPrev());
+				delete Current;
+				length--;
+				break;
+			}
+			if (Current->getNext() != NULL)
+				Current = Current->getNext();
+			else
+				break;
+		}
 	}
 }
