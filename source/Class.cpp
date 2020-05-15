@@ -13,7 +13,18 @@ template<typename T>
 
 list<T>::~list()
 {
-	
+	if (length == 0)
+		return;
+	element<T>* current = root;
+	while (current->getNext())
+	{
+		element<T>* temp = current;
+		
+		current = current->getNext();
+		delete temp;
+
+	}
+	delete current;
 }
 
 template<typename T>

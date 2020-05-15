@@ -37,6 +37,7 @@ class list:public Container<T>
 public:
 	list();
 	~list();
+	list(list& temp) = delete;
 	void addElement(T& data, int pos);
 	void deletePosition(int pos);
 	void insert(const T& data);  //addToEnd
